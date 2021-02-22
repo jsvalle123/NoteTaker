@@ -1,8 +1,8 @@
 // boiler plate code from actvitity 14-FinalStarWarsApp
 var express = require("express");
 var path = require("path");
-const Database = require('./data/db');
-const e = require("express");
+const data = require("./db/db");
+// const e = require("express");
 
 // Sets up the Express App
 // =============================================================
@@ -29,45 +29,35 @@ app.get("/notes", function(req, res) {
 
 // Displays all characters
 app.get("/api/notes", function(req, res) {
- const e = new Database();
- res.json(e.getNotes());
+ res.json(data);
 });
 
 app.post("/api/notes", function(req, res) {
-  // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
-  var newNote = req.body;
+    var newNote = req.body;
 
-  // Using a RegEx Pattern to remove spaces from newNote
-  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  if (!newNote.id) {
-      newNote.id = id();
-  }
-  try {
-      e.saveNote(newNote);
-      res.json(newNote);
-  }
-  catch (error) {
-      switch (error.message.toLowerCase()) {
-          case "notfound":
-          res.sendStatus(404);
-          break;
-          case "invalidparameter":
-              res.sendStatus(403);
-              break;
-              default:
-                  res.sendStatus(402);
-
-      }
-  }
-});
+    // Using a RegEx Pattern to remove spaces from newNote
+    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    newNote.title = newNote.title.replace(/\s+/g, "").toLowerCase();
+  
+    console.log(newNote);
+  
+    data.push(newNote);
+  
+    res.json(newNote);
+  });
+  
 
 app.delete("/api/notes/:id", function (req, res, err) {
-    const e = new Database();
-    var id = req.params.id;
-e.deleteNote(id)
-res.sendStatus(302)
-})
+    var deleteNote = () => req.params.id;
+    var id = data
+   
+    deleteNote(id);
+    console.log("note deleted" + JSON.stringify(data. null)
+        );
+        res.send("note deleted" + JSON.stringify(data. null)
+        );
+});
+
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
