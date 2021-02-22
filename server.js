@@ -28,12 +28,12 @@ app.get("/notes", function(req, res) {
 
 
 // Displays all characters
-app.get("/note", function(req, res) {
+app.get("/api/note", function(req, res) {
  const e = new Database();
  res.json(e.getNotes());
 });
 
-app.post("/note", function(req, res) {
+app.post("/api/note", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
   var newNote = req.body;
@@ -62,7 +62,7 @@ app.post("/note", function(req, res) {
   }
 });
 
-app.delete("/note/:id", function (req, res, err) {
+app.delete("/api/notes/:id", function (req, res, err) {
     const e = new Database();
     var id = req.params.id;
 e.deleteNote(id)
