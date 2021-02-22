@@ -28,12 +28,12 @@ app.get("/notes", function(req, res) {
 
 
 // Displays all characters
-app.get("/api/note", function(req, res) {
+app.get("/api/notes", function(req, res) {
  const e = new Database();
  res.json(e.getNotes());
 });
 
-app.post("/api/note", function(req, res) {
+app.post("/api/notes", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
   var newNote = req.body;
